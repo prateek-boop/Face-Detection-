@@ -1,0 +1,92 @@
+model:
+  image_size: 640
+  num_classes: 1
+  backbone_width_mult: 1.0
+  fpn_channels: 256
+  num_anchors: 3
+  anchor_scales:
+  - 3.799999952316284
+  - 6.599999904632568
+  - 10.600000381469727
+  - 16.200000762939453
+  - 24.0
+  - 35.29999923706055
+  - 53.79999923706055
+  - 93.69999694824219
+  - 190.60000610351562
+  anchor_ratios:
+  - 0.796999990940094
+  - 0.781000018119812
+  - 0.7850000262260437
+  - 0.7879999876022339
+  - 0.7910000085830688
+  - 0.781000018119812
+  - 0.7540000081062317
+  - 0.7540000081062317
+  - 0.7609999775886536
+  landmark_enabled: false
+train:
+  batch_size: 8
+  lr: 5.0e-05
+  min_lr: 1.0e-07
+  weight_decay: 0.05
+  momentum: 0.9
+  max_epochs: 184
+  warmup_epochs: 0
+  amp: true
+  num_workers: 4
+  pin_memory: true
+  persistent_workers: true
+  gradient_clip: 5.0
+loss:
+  focal_alpha: 0.25
+  focal_gamma: 2.0
+  cls_weight: 1.0
+  reg_weight: 2.0
+  lmk_weight: 0.5
+  neg_ratio: 3
+augment:
+  mosaic_prob: 0.3
+  flip_prob: 0.5
+  jitter_brightness: 0.3
+  jitter_contrast: 0.3
+  jitter_saturation: 0.3
+  crop_prob: 0.3
+  crop_min_iou: 0.3
+  cutout_prob: 0.1
+  cutout_num_holes: 3
+  cutout_hole_size: 40
+inference:
+  conf_threshold: 0.6
+  nms_iou: 0.3
+  soft_nms_sigma: 0.5
+  max_detections: 1000
+early_stopping:
+  patience: 35
+  min_delta: 0.0001
+  min_epochs: 5
+checkpoint:
+  keep_top_k: 3
+  save_dir: checkpoints
+paths:
+  dataset_root: data/wider_face
+  train_images: data/wider_face/WIDER_train/images
+  val_images: data/wider_face/WIDER_val/images
+  train_ann: data/wider_face/wider_face_split/wider_face_train_bbx_gt.txt
+  val_ann: data/wider_face/wider_face_split/wider_face_val_bbx_gt.txt
+  output_dir: outputs
+  encodings_file: encodings.pkl
+  known_students: known_students
+  metadata_csvs:
+    - "PIET - All Students - Okiedokie and Drive Links.xlsx"
+    - "output.csv"
+    - "output2.csv"
+capture:
+  blur_threshold: 100.0
+  min_confidence: 0.8
+  min_face_size: 64
+  num_crops: 5
+security:
+  reentry_alert_minutes: 20
+  screenshot_cooldown: 60.0
+

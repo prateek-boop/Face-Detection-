@@ -1,0 +1,1 @@
+.\venv\Scripts\python.exe app/face_recog.py --config config.yaml --checkpoint checkpoints/latest.pt
